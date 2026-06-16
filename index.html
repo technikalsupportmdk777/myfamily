@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>MyFamily · Наша семья</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #05030a;
+            color: #e8e0e8;
+            min-height: 100vh;
+            padding: 0 16px 20px;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ─── ФОН: НЕОНОВЫЕ ВОЛНЫ ─── */
+        .waves-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .waves-bg canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ─── Контейнер ─── */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 12px 0 20px;
+        }
+
+        /* ─── Шапка ─── */
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px 0 20px;
+            border-bottom: 1px solid rgba(255, 122, 158, 0.08);
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff7a9e, #d4607a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-shadow: 0 0 40px rgba(255, 122, 158, 0.15);
+        }
+        .logo i {
+            -webkit-text-fill-color: #ff7a9e;
+            filter: drop-shadow(0 0 30px rgba(255, 122, 158, 0.4));
+            animation: pulseHeart 2s ease-in-out infinite;
+        }
+        @keyframes pulseHeart {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            color: #8a7a8a;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+            padding: 6px 0;
+            text-shadow: 0 0 20px rgba(255, 122, 158, 0.05);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff7a9e;
+            transition: width 0.3s;
+            box-shadow: 0 0 20px rgba(255, 122, 158, 0.3);
+        }
+        .nav-links a:hover {
+            color: #fff;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:active {
+            color: #ff7a9e;
+        }
+
+        /* ─── Секции ─── */
+        .section {
+            padding: 30px 0 24px;
+            border-bottom: 1px solid rgba(255, 122, 158, 0.04);
+        }
+        .section:last-of-type {
+            border-bottom: none;
+        }
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            text-shadow: 0 0 40px rgba(255, 122, 158, 0.1);
+        }
+        .section-title i {
+            color: #ff7a9e;
+            font-size: 1.8rem;
+            filter: drop-shadow(0 0 30px rgba(255, 122, 158, 0.3));
+        }
+
+        /* ─── ГЛАВНАЯ ─── */
+        .hero {
+            text-align: left;
+            padding: 10px 0 4px;
+        }
+        .hero .badge {
+            display: inline-block;
+            background: rgba(255, 122, 158, 0.08);
+            border: 1px solid rgba(255, 122, 158, 0.15);
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #ff7a9e;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            box-shadow: 0 0 30px rgba(255, 122, 158, 0.05);
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.08;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 0 60px rgba(255, 122, 158, 0.1);
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, #fff 30%, #ff7a9e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 60px rgba(255, 122, 158, 0.2);
+        }
+        .hero .sub {
+            font-size: 1.1rem;
+            color: #8a7a8a;
+            max-width: 700px;
+            margin-bottom: 18px;
+            font-weight: 300;
+            text-shadow: 0 0 30px rgba(255, 122, 158, 0.05);
+        }
+        .hero .sub i {
+            color: #ff7a9e;
+        }
+        .hero .story {
+            font-size: 0.95rem;
+            line-height: 1.9;
+            color: #b0a0b0;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px 18px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 122, 158, 0.06);
+            margin-bottom: 10px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 40px rgba(255, 122, 158, 0.02);
+        }
+        .hero .story i {
+            color: #ff7a9e;
+            text-shadow: 0 0 20px rgba(255, 122, 158, 0.2);
+        }
+        .hero .story .highlight {
+            color: #ff7a9e;
+            font-weight: 600;
+            text-shadow: 0 0 30px rgba(255, 122, 158, 0.15);
+        }
+
+        /* ─── МЕДИА ─── */
+        .media-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #120c16;
+            box-shadow: 0 0 60px rgba(255, 122, 158, 0.05);
+            border: 1px solid rgba(255, 122, 158, 0.06);
+        }
+        .video-wrapper video,
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 24px;
+        }
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1018, #0d0810);
+            color: #6a4a5a;
+            font-size: 1.2rem;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .video-placeholder i {
+            font-size: 48px;
+            color: #ff7a9e;
+            opacity: 0.3;
+            filter: drop-shadow(0 0 30px rgba(255, 122, 158, 0.2));
+        }
+
+        .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 6px;
+        }
+        .photo-item {
+            aspect-ratio: 1 / 1;
+            border-radius: 20px;
+            background: #120c16;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6a4a5a;
+            font-weight: 500;
+            font-size: 0.8rem;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255, 122, 158, 0.04);
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(255, 122, 158, 0.02);
+        }
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .photo-item:active {
+            transform: scale(0.95);
+        }
+        .photo-item .placeholder-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.3;
+        }
+        .photo-item .placeholder-icon i {
+            font-size: 28px;
+            color: #8a6a7a;
+            filter: drop-shadow(0 0 20px rgba(255, 122, 158, 0.1));
+        }
+
+        /* ─── ВМЕСТЕ ─── */
+        .together-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .timer-block {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 122, 158, 0.06);
+            padding: 28px 20px;
+            border-radius: 28px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 0 50px rgba(255, 122, 158, 0.02);
+        }
+        .timer-block:active {
+            transform: scale(0.98);
+        }
+        .timer-block .days {
+            font-size: 3.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff7a9e, #d4607a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            text-shadow: 0 0 60px rgba(255, 122, 158, 0.15);
+        }
+        .timer-block .label {
+            font-size: 1rem;
+            color: #8a7a8a;
+            margin-top: 2px;
+            text-shadow: 0 0 20px rgba(255, 122, 158, 0.05);
+        }
+        .timer-block .date {
+            margin-top: 12px;
+            color: #8a7a8a;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .timer-block .heart-small {
+            color: #ff7a9e;
+            margin: 0 4px;
+            display: inline-block;
+            animation: pulseHeart 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 122, 158, 0.2));
+        }
+        .timer-block .sub-details {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: #6a5a6a;
+        }
+        .timer-block .sub-details i {
+            color: #ff7a9e;
+            filter: drop-shadow(0 0 20px rgba(255, 122, 158, 0.1));
+        }
+
+        .reasons {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 122, 158, 0.06);
+            padding: 28px 20px;
+            border-radius: 28px;
+            transition: all 0.3s;
+            box-shadow: 0 0 50px rgba(255, 122, 158, 0.02);
+        }
+        .reasons:active {
+            transform: scale(0.99);
+        }
+        .reasons h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-shadow: 0 0 40px rgba(255, 122, 158, 0.1);
+        }
+        .reasons h3 i {
+            color: #ff7a9e;
+            filter: drop-shadow(0 0 30px rgba(255, 122, 158, 0.2));
+        }
+        .reasons ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .reasons ul li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: #b0a0b0;
+            line-height: 1.5;
+            padding: 8px 12px;
+            border-radius: 20px;
+            transition: all 0.3s;
+            text-shadow: 0 0 20px rgba(255, 122, 158, 0.03);
+        }
+        .reasons ul li:active {
+            background: rgba(255, 122, 158, 0.06);
+        }
+        .reasons ul li i {
+            color: #ff7a9e;
+            font-size: 1.2rem;
+            margin-top: 2px;
+            flex-shrink: 0;
+            filter: drop-shadow(0 0 20px rgba(255, 122, 158, 0.1));
+        }
+
+        /* ─── СЕМЬЯ ─── */
+        .family-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .family-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 122, 158, 0.04);
+            border-radius: 28px;
+            padding: 20px 14px 18px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 0 40px rgba(255, 122, 158, 0.02);
+        }
+        .family-card:active {
+            transform: scale(0.96);
+            border-color: rgba(255, 122, 158, 0.12);
+        }
+        .family-card .avatar {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: #120c16;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #8a6a7a;
+            overflow: hidden;
+            border: 2px solid rgba(255, 122, 158, 0.06);
+            transition: all 0.3s;
+            box-shadow: 0 0 40px rgba(255, 122, 158, 0.03);
+        }
+        .family-card .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .family-card .name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 30px rgba(255, 122, 158, 0.05);
+        }
+        .family-card .role {
+            color: #8a7a8a;
+            font-weight: 500;
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+        .family-card .desc {
+            color: #6a5a6a;
+            font-size: 0.78rem;
+            margin-top: 8px;
+            line-height: 1.3;
+        }
+        .family-card .heart-icon {
+            color: #ff7a9e;
+            font-size: 12px;
+            margin-top: 6px;
+            display: inline-block;
+            animation: pulseHeart 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 122, 158, 0.2));
+        }
+
+        /* ─── Футер ─── */
+        .footer {
+            text-align: center;
+            padding: 24px 0 6px;
+            color: #5a4a5a;
+            font-size: 0.75rem;
+            border-top: 1px solid rgba(255, 122, 158, 0.04);
+            margin-top: 16px;
+            text-shadow: 0 0 20px rgba(255, 122, 158, 0.03);
+        }
+        .footer span {
+            color: #ff7a9e;
+            font-weight: 600;
+            filter: drop-shadow(0 0 20px rgba(255, 122, 158, 0.1));
+        }
+        .footer .sub-text {
+            display: block;
+            font-size: 0.65rem;
+            opacity: 0.4;
+            margin-top: 4px;
+        }
+
+        /* ─── Планшетный промежуток ─── */
+        @media (min-width: 600px) {
+            body {
+                padding: 0 40px 30px;
+            }
+            .container {
+                max-width: 600px;
+            }
+            .photos-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .family-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .hero h1 {
+                font-size: 3.6rem;
+            }
+            .hero .story {
+                font-size: 1rem;
+                padding: 24px 28px;
+            }
+        }
+
+        @media (min-width: 900px) {
+            body {
+                padding: 0 60px 40px;
+            }
+            .container {
+                max-width: 720px;
+            }
+            .photos-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            .family-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .hero h1 {
+                font-size: 4.2rem;
+            }
+        }
+
+        /* ─── Анимация появления ─── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ФОН: НЕОНОВЫЕ ВОЛНЫ -->
+    <div class="waves-bg">
+        <canvas id="wavesCanvas"></canvas>
+    </div>
+
+    <div class="container">
+
+        <!-- Шапка -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-heart"></i> MyFamily
+            </div>
+            <div class="nav-links">
+                <a href="#home">Главная</a>
+                <a href="#media">Медиа</a>
+                <a href="#together">Вместе</a>
+                <a href="#family">Семья</a>
+            </div>
+        </header>
+
+        <!-- ГЛАВНАЯ -->
+        <section class="section hero reveal" id="home">
+            <div class="badge"><i class="fas fa-heart"></i> Наша история</div>
+            <h1>Мы — <span>одно целое</span></h1>
+            <div class="sub">
+                <i class="fas fa-quote-left"></i> Любовь, которая пишется каждый день
+            </div>
+            <div class="story">
+                <p>
+                    <i class="fas fa-quote-left"></i> 
+                    Мы встретились не случайно — это была <span class="highlight">судьба</span>. 
+                    С тех пор каждый день наполнен теплом, заботой и бесконечным счастьем. 
+                    Наша любовь — это не просто чувство, это <span class="highlight">целый мир</span>, 
+                    в котором мы растём, мечтаем и строим будущее.
+                </p>
+                <p style="margin-top: 14px;">
+                    Я верю, что настоящая любовь — это когда два сердца бьются в унисон, 
+                    преодолевают трудности и радуются каждому мгновению вместе.
+                </p>
+                <p style="margin-top: 14px;">
+                    <i class="fas fa-heart" style="color:#ff7a9e;"></i> 
+                    Спасибо, что ты есть. Ты — моё <span class="highlight">вдохновение</span>, 
+                    моя опора и мой самый родной человек.
+                </p>
+            </div>
+        </section>
+
+        <!-- МЕДИА -->
+        <section class="section reveal" id="media">
+            <div class="section-title">
+                <i class="fas fa-video"></i> Наши моменты
+            </div>
+            <div class="media-grid">
+                <div class="video-wrapper">
+                    <video controls poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23120c16'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%236a4a5a' font-size='18' font-family='Inter'%3EНаше видео%3C/text%3E%3C/svg%3E">
+                        <source src="#" type="video/mp4" />
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                </div>
+                <div class="photos-grid">
+                    <div class="photo-item"><img src="#" alt="Фото 1" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>1</span></div></div>
+                    <div class="photo-item"><img src="#" alt="Фото 2" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>2</span></div></div>
+                    <div class="photo-item"><img src="#" alt="Фото 3" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>3</span></div></div>
+                    <div class="photo-item"><img src="#" alt="Фото 4" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>4</span></div></div>
+                    <div class="photo-item"><img src="#" alt="Фото 5" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>5</span></div></div>
+                    <div class="photo-item"><img src="#" alt="Фото 6" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>6</span></div></div>
+                    <div class="photo-item"><img src="#" alt="Фото 7" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>7</span></div></div>
+                    <div class="photo-item"><img src="#" alt="Фото 8" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>8</span></div></div>
+                    <div class="photo-item"><img src="#" alt="Фото 9" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>9</span></div></div>
+                    <div class="photo-item"><img src="#" alt="Фото 10" /><div class="placeholder-icon"><i class="fas fa-image"></i><span>10</span></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ВМЕСТЕ -->
+        <section class="section reveal" id="together">
+            <div class="section-title">
+                <i class="fas fa-calendar-alt"></i> Сколько мы вместе
+            </div>
+            <div class="together-grid">
+                <div class="timer-block">
+                    <div class="days" id="daysTogether">0</div>
+                    <div class="label">дней счастья</div>
+                    <div class="date">
+                        <i class="fas fa-heart heart-small"></i> 
+                        с <span id="startDate">01.01.2020</span> 
+                        <i class="fas fa-heart heart-small"></i>
+                    </div>
+                    <div class="sub-details">
+                        <i class="fas fa-clock"></i> 
+                        <span id="hoursTogether">0</span> часов · 
+                        <span id="minutesTogether">0</span> минут
+                    </div>
+                </div>
+                <div class="reasons">
+                    <h3><i class="fas fa-heart"></i> Почему нам стоит быть вместе</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Мы понимаем друг друга без слов.</li>
+                        <li><i class="fas fa-check-circle"></i> Вместе мы сильнее и можем всё.</li>
+                        <li><i class="fas fa-check-circle"></i> Каждый день мы делаем друг друга лучше.</li>
+                        <li><i class="fas fa-check-circle"></i> Наша любовь — фундамент нашего счастья.</li>
+                        <li><i class="fas fa-check-circle"></i> Мы никогда не сдаёмся, потому что верим в нас.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- СЕМЬЯ -->
+        <section class="section reveal" id="family">
+            <div class="section-title">
+                <i class="fas fa-users"></i> Наша семья
+            </div>
+            <div class="family-grid">
+                <div class="family-card">
+                    <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="name">Алексей</div>
+                    <div class="role">Глава семьи</div>
+                    <div class="desc">Защитник, добытчик</div>
+                    <div class="heart-icon"><i class="fas fa-heart"></i></div>
+                </div>
+                <div class="family-card">
+                    <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="name">Екатерина</div>
+                    <div class="role">Хранительница очага</div>
+                    <div class="desc">Нежность, забота</div>
+                    <div class="heart-icon"><i class="fas fa-heart"></i></div>
+                </div>
+                <div class="family-card">
+                    <div class="avatar"><i class="fas fa-child"></i></div>
+                    <div class="name">Михаил</div>
+                    <div class="role">Сын</div>
+                    <div class="desc">Любознательный, весёлый</div>
+                    <div class="heart-icon"><i class="fas fa-heart"></i></div>
+                </div>
+                <div class="family-card">
+                    <div class="avatar"><i class="fas fa-dog"></i></div>
+                    <div class="name">Рекс</div>
+                    <div class="role">Лучший друг</div>
+                    <div class="desc">Верный пёс</div>
+                    <div class="heart-icon"><i class="fas fa-heart"></i></div>
+                </div>
+                <div class="family-card">
+                    <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="name">Анна</div>
+                    <div class="role">Дочь</div>
+                    <div class="desc">Маленькая принцесса</div>
+                    <div class="heart-icon"><i class="fas fa-heart"></i></div>
+                </div>
+                <div class="family-card">
+                    <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="name">Александра</div>
+                    <div class="role">Бабушка</div>
+                    <div class="desc">Мудрость и тепло</div>
+                    <div class="heart-icon"><i class="fas fa-heart"></i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Футер -->
+        <div class="footer">
+            <span>&lt;/&gt;</span> с любовью навсегда <span>❤️</span>
+            <span class="sub-text">Наша история продолжается...</span>
+        </div>
+
+    </div>
+
+    <script>
+        // ─── НЕОНОВЫЕ ВОЛНЫ ───
+        (function neonWaves() {
+            const canvas = document.getElementById('wavesCanvas');
+            const ctx = canvas.getContext('2d');
+            let w, h;
+
+            function resize() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
+
+            const waves = [
+                { amplitude: 40, frequency: 0.008, speed: 0.0008, phase: 0, color: 'rgba(255, 122, 158, 0.25)' },
+                { amplitude: 30, frequency: 0.012, speed: 0.0012, phase: 2, color: 'rgba(180, 80, 150, 0.2)' },
+                { amplitude: 50, frequency: 0.006, speed: 0.0006, phase: 4, color: 'rgba(255, 150, 180, 0.15)' },
+                { amplitude: 25, frequency: 0.015, speed: 0.0015, phase: 1, color: 'rgba(200, 100, 170, 0.12)' },
+                { amplitude: 60, frequency: 0.004, speed: 0.0004, phase: 3, color: 'rgba(255, 100, 140, 0.08)' },
+            ];
+
+            let time = 0;
+
+            function draw() {
+                ctx.clearRect(0, 0, w, h);
+                ctx.fillStyle = 'rgba(5, 3, 10, 0.1)';
+                ctx.fillRect(0, 0, w, h);
+
+                waves.forEach((wave) => {
+                    ctx.beginPath();
+                    ctx.moveTo(0, h);
+
+                    for (let x = 0; x <= w; x += 2) {
+                        const y = h / 2 + wave.amplitude * Math.sin(x * wave.frequency + time * wave.speed + wave.phase) +
+                            wave.amplitude * 0.3 * Math.sin(x * wave.frequency * 0.5 + time * wave.speed * 0.7 + wave.phase * 1.5);
+                        ctx.lineTo(x, y);
+                    }
+
+                    ctx.lineTo(w, h);
+                    ctx.closePath();
+
+                    const grad = ctx.createLinearGradient(0, 0, 0, h);
+                    grad.addColorStop(0, wave.color);
+                    grad.addColorStop(0.5, wave.color.replace('0.25', '0.08').replace('0.2', '0.06').replace('0.15', '0.04').replace('0.12', '0.03').replace('0.08', '0.02'));
+                    grad.addColorStop(1, 'rgba(5, 3, 10, 0)');
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+
+                    ctx.beginPath();
+                    ctx.moveTo(0, h / 2 + wave.amplitude * Math.sin(0 + time * wave.speed + wave.phase) +
+                        wave.amplitude * 0.3 * Math.sin(0 * wave.frequency * 0.5 + time * wave.speed * 0.7 + wave.phase * 1.5));
+
+                    for (let x = 0; x <= w; x += 2) {
+                        const y = h / 2 + wave.amplitude * Math.sin(x * wave.frequency + time * wave.speed + wave.phase) +
+                            wave.amplitude * 0.3 * Math.sin(x * wave.frequency * 0.5 + time * wave.speed * 0.7 + wave.phase * 1.5);
+                        ctx.lineTo(x, y);
+                    }
+
+                    ctx.strokeStyle = wave.color.replace('0.25', '0.6').replace('0.2', '0.5').replace('0.15', '0.4').replace('0.12', '0.35').replace('0.08', '0.25');
+                    ctx.lineWidth = 2;
+                    ctx.shadowColor = wave.color;
+                    ctx.shadowBlur = 30;
+                    ctx.stroke();
+                    ctx.shadowBlur = 0;
+                });
+
+                for (let i = 0; i < 3; i++) {
+                    const xPos = (w / 3) * i + (w / 6);
+                    ctx.beginPath();
+                    ctx.moveTo(xPos, 0);
+                    const amp = 15 + i * 5;
+                    const freq = 0.01 + i * 0.002;
+                    for (let y = 0; y <= h; y += 2) {
+                        const x = xPos + amp * Math.sin(y * freq + time * 0.0005 + i * 2);
+                        ctx.lineTo(x, y);
+                    }
+                    ctx.strokeStyle = `rgba(255, 122, 158, ${0.04 + i * 0.02})`;
+                    ctx.lineWidth = 1;
+                    ctx.shadowColor = 'rgba(255, 122, 158, 0.1)';
+                    ctx.shadowBlur = 20;
+                    ctx.stroke();
+                    ctx.shadowBlur = 0;
+                }
+
+                time++;
+                requestAnimationFrame(draw);
+            }
+
+            draw();
+        })();
+
+        // ─── Анимация появления ───
+        (function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            reveals.forEach(el => observer.observe(el));
+        })();
+
+        // ─── Таймер ───
+        (function togetherTimer() {
+            const startDate = new Date(2020, 0, 1);
+            const startDateEl = document.getElementById('startDate');
+            if (startDateEl) {
+                const day = String(startDate.getDate()).padStart(2, '0');
+                const month = String(startDate.getMonth() + 1).padStart(2, '0');
+                const year = startDate.getFullYear();
+                startDateEl.textContent = `${day}.${month}.${year}`;
+            }
+
+            function updateTimer() {
+                const now = new Date();
+                const diffMs = now - startDate;
+                if (diffMs <= 0) return;
+
+                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+                const daysEl = document.getElementById('daysTogether');
+                const hoursEl = document.getElementById('hoursTogether');
+                const minutesEl = document.getElementById('minutesTogether');
+
+                if (daysEl) daysEl.textContent = diffDays;
+                if (hoursEl) hoursEl.textContent = diffHours;
+                if (minutesEl) minutesEl.textContent = diffMinutes;
+            }
+
+            updateTimer();
+            setInterval(updateTimer, 60000);
+        })();
+    </script>
+
+</body>
+</html>
