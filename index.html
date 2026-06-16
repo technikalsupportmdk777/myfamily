@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* ─── все стили без изменений ─── */
         * {
             margin: 0;
             padding: 0;
@@ -38,7 +37,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* ─── ФОН: НЕОНОВЫЕ ВОЛНЫ ─── */
         .waves-bg {
             position: fixed;
             top: 0;
@@ -55,7 +53,6 @@
             height: 100%;
         }
 
-        /* ─── Контейнер ─── */
         .container {
             position: relative;
             z-index: 1;
@@ -64,7 +61,6 @@
             padding: 12px 0 20px;
         }
 
-        /* ─── Шапка ─── */
         .header {
             display: flex;
             flex-direction: column;
@@ -132,7 +128,6 @@
             color: #ff7a9e;
         }
 
-        /* ─── Секции ─── */
         .section {
             padding: 30px 0 24px;
             border-bottom: 1px solid rgba(255, 122, 158, 0.04);
@@ -156,7 +151,6 @@
             filter: drop-shadow(0 0 30px rgba(255, 122, 158, 0.3));
         }
 
-        /* ─── ГЛАВНАЯ ─── */
         .hero {
             text-align: left;
             padding: 10px 0 4px;
@@ -222,7 +216,6 @@
             text-shadow: 0 0 30px rgba(255, 122, 158, 0.15);
         }
 
-        /* ─── МЕДИА ─── */
         .media-grid {
             display: flex;
             flex-direction: column;
@@ -247,24 +240,6 @@
             height: 100%;
             border: none;
             border-radius: 24px;
-        }
-        .video-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #1a1018, #0d0810);
-            color: #6a4a5a;
-            font-size: 1.2rem;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .video-placeholder i {
-            font-size: 48px;
-            color: #ff7a9e;
-            opacity: 0.3;
-            filter: drop-shadow(0 0 30px rgba(255, 122, 158, 0.2));
         }
 
         .photos-grid {
@@ -299,22 +274,7 @@
         .photo-item:active {
             transform: scale(0.95);
         }
-        .photo-item .placeholder-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            opacity: 0.3;
-            position: absolute;
-            pointer-events: none;
-        }
-        .photo-item .placeholder-icon i {
-            font-size: 28px;
-            color: #8a6a7a;
-            filter: drop-shadow(0 0 20px rgba(255, 122, 158, 0.1));
-        }
 
-        /* ─── ВМЕСТЕ ─── */
         .together-grid {
             display: flex;
             flex-direction: column;
@@ -427,7 +387,6 @@
             filter: drop-shadow(0 0 20px rgba(255, 122, 158, 0.1));
         }
 
-        /* ─── СЕМЬЯ ─── */
         .family-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -495,7 +454,6 @@
             filter: drop-shadow(0 0 20px rgba(255, 122, 158, 0.2));
         }
 
-        /* ─── Футер ─── */
         .footer {
             text-align: center;
             padding: 24px 0 6px;
@@ -517,7 +475,6 @@
             margin-top: 4px;
         }
 
-        /* ─── Планшетный промежуток ─── */
         @media (min-width: 600px) {
             body {
                 padding: 0 40px 30px;
@@ -558,7 +515,6 @@
             }
         }
 
-        /* ─── Анимация появления ─── */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -572,14 +528,12 @@
 </head>
 <body>
 
-    <!-- ФОН: НЕОНОВЫЕ ВОЛНЫ -->
     <div class="waves-bg">
         <canvas id="wavesCanvas"></canvas>
     </div>
 
     <div class="container">
 
-        <!-- Шапка -->
         <header class="header">
             <div class="logo">
                 <i class="fas fa-heart"></i> MyFamily
@@ -592,7 +546,6 @@
             </div>
         </header>
 
-        <!-- ГЛАВНАЯ -->
         <section class="section hero reveal" id="home">
             <div class="badge"><i class="fas fa-heart"></i> Наша история</div>
             <h1>Мы — <span>одно целое</span></h1>
@@ -619,20 +572,18 @@
             </div>
         </section>
 
-        <!-- МЕДИА -->
         <section class="section reveal" id="media">
             <div class="section-title">
                 <i class="fas fa-video"></i> Наши моменты
             </div>
             <div class="media-grid">
                 <div class="video-wrapper">
-                    <video controls poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23120c16'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%236a4a5a' font-size='18' font-family='Inter'%3EНаше видео%3C/text%3E%3C/svg%3E">
+                    <video controls>
                         <source src="video.mp4" type="video/mp4" />
                         Ваш браузер не поддерживает видео.
                     </video>
                 </div>
                 <div class="photos-grid">
-                    <!-- ФОТО С ПРАВИЛЬНЫМИ ССЫЛКАМИ -->
                     <div class="photo-item"><img src="photo1.jpg" alt="Фото 1" /></div>
                     <div class="photo-item"><img src="photo2.jpg" alt="Фото 2" /></div>
                     <div class="photo-item"><img src="photo3.jpg" alt="Фото 3" /></div>
@@ -647,7 +598,6 @@
             </div>
         </section>
 
-        <!-- ВМЕСТЕ -->
         <section class="section reveal" id="together">
             <div class="section-title">
                 <i class="fas fa-calendar-alt"></i> Сколько мы вместе
@@ -680,7 +630,6 @@
             </div>
         </section>
 
-        <!-- СЕМЬЯ -->
         <section class="section reveal" id="family">
             <div class="section-title">
                 <i class="fas fa-users"></i> Наша семья
@@ -731,7 +680,6 @@
             </div>
         </section>
 
-        <!-- Футер -->
         <div class="footer">
             <span>&lt;/&gt;</span> с любовью навсегда <span>❤️</span>
             <span class="sub-text">Наша история продолжается...</span>
@@ -740,7 +688,6 @@
     </div>
 
     <script>
-        // ─── НЕОНОВЫЕ ВОЛНЫ ───
         (function neonWaves() {
             const canvas = document.getElementById('wavesCanvas');
             const ctx = canvas.getContext('2d');
@@ -831,7 +778,6 @@
             draw();
         })();
 
-        // ─── Анимация появления ───
         (function revealOnScroll() {
             const reveals = document.querySelectorAll('.reveal');
             const observer = new IntersectionObserver((entries) => {
@@ -844,7 +790,6 @@
             reveals.forEach(el => observer.observe(el));
         })();
 
-        // ─── Таймер ───
         (function togetherTimer() {
             const startDate = new Date(2020, 0, 1);
             const startDateEl = document.getElementById('startDate');
